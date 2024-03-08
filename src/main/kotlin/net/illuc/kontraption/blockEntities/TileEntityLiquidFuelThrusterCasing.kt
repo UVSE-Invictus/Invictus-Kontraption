@@ -11,7 +11,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.state.BlockState
 
 
-open class TileEntityLiquidFuelThrusterCasing(blockProvider: IBlockProvider?, pos: BlockPos?, state: BlockState?) : TileEntityMultiblock<LiquidFuelThrusterMultiblockData?>(blockProvider, pos, state), IHasGasMode{
+open class TileEntityLiquidFuelThrusterCasing(blockProvider: IBlockProvider?, pos: BlockPos?, state: BlockState?) : TileEntityMultiblock<LiquidFuelThrusterMultiblockData?>(blockProvider, pos, state) {
     constructor(pos: BlockPos?, state: BlockState?) : this(KontraptionBlocks.LIQUID_FUEL_THRUSTER_CASING, pos, state)
 
     lateinit var prevMultiblock: LiquidFuelThrusterMultiblockData
@@ -48,11 +48,4 @@ open class TileEntityLiquidFuelThrusterCasing(blockProvider: IBlockProvider?, po
         super.structureChanged(multiblock)
     }
 
-    override fun nextMode(tank: Int) {
-        if (tank === 0) {
-            val multiblock: LiquidFuelThrusterMultiblockData? = multiblock
-            //multiblock.setDumpMode(multiblock.dumpMode.getNext())
-        }
-
-    }
 }

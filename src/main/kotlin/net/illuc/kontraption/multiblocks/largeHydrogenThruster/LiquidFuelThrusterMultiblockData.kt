@@ -1,16 +1,12 @@
 package net.illuc.kontraption.multiblocks.largeHydrogenThruster
 
-import mekanism.api.Action
-import mekanism.api.AutomationType
-import mekanism.api.chemical.attribute.ChemicalAttributeValidator
-import mekanism.api.chemical.gas.Gas
-import mekanism.api.chemical.gas.IGasTank
-import mekanism.common.capabilities.chemical.multiblock.MultiblockChemicalTankBuilder
+import mekanism.common.capabilities.fluid.BasicFluidTank
+import mekanism.common.capabilities.fluid.MultiblockFluidTank
+import mekanism.common.capabilities.fluid.VariableCapacityFluidTank
 import mekanism.common.lib.multiblock.IValveHandler
 import mekanism.common.lib.multiblock.MultiblockData
-import mekanism.common.registries.MekanismGases
+import mekanism.common.tags.LazyTagLookup
 import mekanism.common.tags.MekanismTags
-import net.illuc.kontraption.KontraptionTags
 import net.illuc.kontraption.ThrusterInterface
 import net.illuc.kontraption.blockEntities.TileEntityLiquidFuelThrusterCasing
 import net.illuc.kontraption.config.KontraptionConfigs
@@ -22,15 +18,23 @@ import net.illuc.kontraption.util.toMinecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.tags.FluidTags
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.phys.Vec3
 import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.IFluidTank
+import net.minecraftforge.fluids.capability.IFluidHandler
+import net.minecraftforge.registries.ForgeRegistries
+import org.apache.commons.lang3.ObjectUtils.Null
 import org.joml.Vector3d
 import org.valkyrienskies.core.api.ships.Ship
 
 
 class LiquidFuelThrusterMultiblockData(tile: TileEntityLiquidFuelThrusterCasing) : MultiblockData(tile), ThrusterInterface, IValveHandler {
+
+    val HYDROGEN_LOOKUP = LazyTagLookup.create(ForgeRegistries.FLUIDS, MekanismTags.Fluids.HYDROGEN )
 
     // :cri:
     val te = tile
@@ -59,19 +63,16 @@ class LiquidFuelThrusterMultiblockData(tile: TileEntityLiquidFuelThrusterCasing)
     //----------------stuff-----------------------
 
 
-    var fuelTank: IGasTank? = null
+    var fuelTank: IFluidTank? = null
     var burnRemaining = 0.0
     var lastBurnRate = 0.0
 
     init {
-        //fluidTanks.add(MultiblockFluidTank.create(10, tile))
-        //fuelTank = MultiblockFluidTank.input(this, tile, { 10 }, { fluid: FluidStack -> MekanismTags.Fluids.LAVA_LOOKUP.contains(fluid.fluid) })
-        fuelTank = MultiblockChemicalTankBuilder.GAS.create(this, tile, { (thrusterPower * 100 * 4).toLong() },
-                { stack: Gas?, automationType: AutomationType -> automationType != AutomationType.EXTERNAL }, { stack: Gas?, automationType: AutomationType? -> isFormed },
-                { gas: Gas -> gas === MekanismGases.HYDROGEN.get() }, ChemicalAttributeValidator.ALWAYS_ALLOW, null)
+
+        fuelTank = VariableCapacityFluidTank.input(10000, { fluid: FluidStack -> HYDROGEN_LOOKUP.contains(fluid.fluid) }, null)
 
 
-        gasTanks.add(fuelTank);
+        fluidTanks.add(fuelTank as BasicFluidTank);
     }
 
     override fun onCreated(world: Level?) {
@@ -128,9 +129,13 @@ class LiquidFuelThrusterMultiblockData(tile: TileEntityLiquidFuelThrusterCasing)
 
     private fun burnFuel(world: Level) {
         val lastBurnRemaining: Double = burnRemaining
-        var storedFuel: Double = fuelTank!!.stored + burnRemaining
+        var storedFuel: Double = fuelTank!!.fluidAmount + burnRemaining
+        print("Fluid in Tank: ")
+        print(storedFuel)
+        println()
         val toBurn = thrusterPower * KontraptionConfigs.kontraption.liquidFuelConsumption.get() //Math.min(Math.min(1.0, storedFuel), fuelAssemblies * MekanismGeneratorsConfig.generators.burnPerAssembly.get())
         storedFuel -= toBurn
+
         if (storedFuel <= 0.0){
             if (enabled == true){
                 disable()
@@ -140,8 +145,8 @@ class LiquidFuelThrusterMultiblockData(tile: TileEntityLiquidFuelThrusterCasing)
                 enable()
             }
         }
-        fuelTank!!.setStackSize(storedFuel.toLong(), Action.EXECUTE)
-        burnRemaining = storedFuel % 1
+        fuelTank!!.drain(storedFuel.toInt(), IFluidHandler.FluidAction.EXECUTE)
+        burnRemaining = storedFuel
         //heatCapacitor.handleHeat(toBurn * MekanismGeneratorsConfig.generators.energyPerFissionFuel.get().doubleValue())
         // update previous burn
         lastBurnRate = toBurn

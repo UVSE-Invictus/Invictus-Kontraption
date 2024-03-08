@@ -6,6 +6,7 @@ import mekanism.api.chemical.gas.Gas
 import mekanism.api.chemical.gas.GasStack
 import mekanism.api.chemical.gas.IGasTank
 import mekanism.common.capabilities.holder.chemical.IChemicalTankHolder
+import mekanism.common.capabilities.holder.fluid.IFluidTankHolder
 import mekanism.common.tile.base.SubstanceType
 import net.illuc.kontraption.KontraptionBlocks
 import net.minecraft.core.BlockPos
@@ -18,8 +19,8 @@ import javax.annotation.Nonnull
 class TileEntityLiquidFuelThrusterValve(pos: BlockPos?, state: BlockState?) : TileEntityLiquidFuelThrusterCasing(KontraptionBlocks.LIQUID_FUEL_THRUSTER_VALVE, pos, state) {
 
     @Nonnull
-    override fun getInitialGasTanks(listener: IContentsListener?): IChemicalTankHolder<Gas, GasStack, IGasTank> {
-        return IChemicalTankHolder { side: Direction? -> multiblock!!.getGasTanks(side) }
+    override fun getInitialFluidTanks(listener: IContentsListener?): IFluidTankHolder {
+        return IFluidTankHolder { side: Direction? -> multiblock!!.getFluidTanks(side) }
     }
 
     override fun persists(type: SubstanceType): Boolean {
