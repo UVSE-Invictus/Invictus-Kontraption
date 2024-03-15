@@ -1,20 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " T ",
-    "TST",
-    " T "
-  ],
-  "key": {
-    "S": {
-      "item": "kontraption:liquid_fuel_thruster_casing"
-    },
-    "T": {
-      "tag": "forge:ingots/tin"
-    }
-  },
+  "type": "minecraft:crafting_shapeless",
+  "ingredient": [
+      {
+          "item": "kontraption:liquid_fuel_thruster_casing"
+      }
+    ],
   "result": {
-    "item": "kontraption:liquid_fuel_thruster_exhaust",
-    "count": 2
+      "item": "kontraption:liquid_fuel_thruster_exhaust",
+      "count": 1
   }
 }

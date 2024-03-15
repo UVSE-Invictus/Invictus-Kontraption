@@ -1,29 +1,29 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "RBR",
-    "OCO",
-    "RGR"
+    "aba",
+    "cdc",
+    "aea"
   ],
   "key": {
-    "O": {
-      "tag": "forge:ingots/osmium"
-    },
-    "G": {
-      "tag": "forge:dusts/gold"
-    },
-    "R": {
+    "a": {
       "tag": "forge:dusts/redstone"
     },
-    "C": {
-      "item": "mekanism:steel_casing"
+    "b": {
+      "item": "create:precision_mechanism"
     },
-    "B": {
-      "item": "mekanism:basic_control_circuit"
+    "c": {
+      "item": "mekanism:ingot_osmium"
+    },
+    "d": {
+      "tag": "forge:storage_blocks/steel"
+    },
+    "e": {
+      "item": "clockwork:wanderlite_matrix"
     }
   },
   "result": {
     "item": "kontraption:ion_thruster",
-    "count": 1
+    "count": 4
   }
 }
