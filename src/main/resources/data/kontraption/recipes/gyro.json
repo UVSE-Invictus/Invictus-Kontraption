@@ -1,23 +1,32 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " C ",
-    "STS",
-    " C "
-  ],
+      " f ",
+      "bcb",
+      "ade"
+    ],
   "key": {
-    "S": {
-      "tag": "forge:ingots/iron"
+    "a": {
+      "item": "create_dd:calculation_mechanism"
     },
-    "T": {
-      "item": "mekanism:steel_casing"
+    "b": {
+      "item": "minecraft:gold_block"
     },
-    "C": {
-      "item": "mekanism:advanced_control_circuit"
+    "c": {
+      "item": "create:flywheel"
+    },
+    "d": {
+      "item": "forge:storage_blocks/steel"
+    },
+    "e": {
+      "tag": "create_dd:integrated_mechanism"
+    },
+    "f": {
+      "item": "clockwork:wanderlite_matrix"
     }
   },
   "result": {
     "item": "kontraption:gyro",
-    "count": 1
+    "count": 5
   }
 }

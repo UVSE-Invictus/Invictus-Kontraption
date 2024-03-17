@@ -1,20 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "STS",
-    " S "
-  ],
-  "key": {
-    "S": {
-      "tag": "forge:ingots/steel"
-    },
-    "T": {
-      "tag": "forge:ingots/tin"
-    }
-  },
+  "type": "minecraft:crafting_shapeless",
+  "ingredient": [
+      {
+          "tag": "forge:ingots/tin"
+      },
+      {
+          "tag": "createbigcannons:ingot_steel"
+      },
+      {
+          "tag": "createbigcannons:ingot_steel"
+      },
+      {
+          "tag": "createbigcannons:ingot_steel"
+      }
+    ],
   "result": {
-    "item": "kontraption:liquid_fuel_thruster_casing",
-    "count": 8
+      "item": "kontraption:liquid_fuel_thruster_casing",
+      "count": 4
   }
 }

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredient": [
+    {
+          "item": "create_dd:rubber"
+    },  
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }, 
+    {
+          "item": "create_dd:rubber"
+    }
+  ],
+  "result": {
+    "item": "kontraption:toolgun",
+    "count": 1
+  }
+}

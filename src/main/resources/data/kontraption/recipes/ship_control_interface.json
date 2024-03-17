@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "S S",
-    "CHC",
-    "STS"
+    "aba",
+    "cdc",
+    " e "
   ],
   "key": {
-    "S": {
+    "a": {
       "tag": "forge:ingots/steel"
     },
-    "T": {
-      "tag": "forge:ingots/tin"
+    "b": {
+      "item": "minecraft:glowstone"
     },
-    "C": {
+    "c": {
       "item": "mekanism:advanced_control_circuit"
     },
-    "H": {
-      "item": "mekanism:steel_casing"
+    "d": {
+      "tag": "forge:storage_blocks/steel"
     }
   },
   "result": {

@@ -3,13 +3,10 @@
   "ingredient": [
       {
           "item": "kontraption:liquid_fuel_thruster_exhaust"
-      },
-      {
-          "item": "create_dd:infernal_mechanism"
       }
     ],
   "result": {
-      "item": "kontraption:liquid_fuel_thruster_valve",
+      "item": "kontraption:liquid_fuel_thruster_casing",
       "count": 1
   }
 }
